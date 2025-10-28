@@ -68,7 +68,7 @@ include __DIR__ . '/../header.php';
     <a href="add.php" class="btn btn-primary">Add Medicine</a>
 </div>
 <?php if ($flash): ?>
-    <div class="alert alert-<?= sanitize($flash['type'] ?? 'info') ?>">
+    <div class="alert alert-<?= sanitize($flash['type'] ?? 'info') ?>" role="alert" aria-live="assertive">
         <?= sanitize($flash['message'] ?? '') ?>
     </div>
 <?php endif; ?>
@@ -162,7 +162,7 @@ include __DIR__ . '/../header.php';
                             </td>
                             <td class="text-end">
                                 <a href="edit.php?id=<?= sanitize((string)$medicine['id']) ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                <form action="delete.php" method="post" class="d-inline" onsubmit="return confirm('Delete this medicine?');">
+                                <form action="delete.php" method="post" class="d-inline needs-confirm" data-confirm-message="Delete this medicine?">
                                     <input type="hidden" name="csrf_token" value="<?= sanitize(csrf_token()) ?>">
                                     <input type="hidden" name="id" value="<?= sanitize((string)$medicine['id']) ?>">
                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
