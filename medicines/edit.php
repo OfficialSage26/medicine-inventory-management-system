@@ -82,51 +82,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include __DIR__ . '/../header.php';
 ?>
 <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-        <h1 class="h3 mb-3">Edit Medicine</h1>
-        <?php if ($errors): ?>
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    <?php foreach ($errors as $error): ?>
-                        <li><?= sanitize($error) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-        <form method="post" novalidate>
-            <input type="hidden" name="csrf_token" value="<?= sanitize(csrf_token()) ?>">
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required maxlength="150" value="<?= sanitize($name) ?>">
-            </div>
-            <div class="mb-3">
-                <label for="category_id" class="form-label">Category</label>
-                <select class="form-select" id="category_id" name="category_id">
-                    <option value="">None</option>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= sanitize((string)$category['id']) ?>" <?= (int)$categoryId === (int)$category['id'] ? 'selected' : '' ?>><?= sanitize($category['name']) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label for="quantity" class="form-label">Quantity</label>
-                    <input type="number" class="form-control" id="quantity" name="quantity" min="0" required value="<?= sanitize((string)$quantity) ?>">
-                </div>
-                <div class="col-md-4">
-                    <label for="reorder_level" class="form-label">Reorder Level</label>
-                    <input type="number" class="form-control" id="reorder_level" name="reorder_level" min="0" required value="<?= sanitize((string)$reorderLevel) ?>">
-                </div>
-                <div class="col-md-4">
-                    <label for="expiry_date" class="form-label">Expiry Date</label>
-                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="<?= sanitize($expiryDate ?? '') ?>">
+    <div class="col-lg-7 col-xl-6">
+        <div class="card form-card">
+            <div class="card-header d-flex align-items-center">
+                <span class="me-3 text-primary"><i class="bi bi-pencil-square fs-3"></i></span>
+                <div>
+                    <h1 class="h4 mb-0">Edit Medicine</h1>
+                    <p class="text-muted small mb-0">Update stock information and thresholds.</p>
                 </div>
             </div>
-            <div class="d-flex gap-2 mt-3">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="<?= sanitize(app_url('medicines/index.php')) ?>" class="btn btn-outline-secondary">Cancel</a>
+            <div class="card-body">
+                <?php if ($errors): ?>
+                    <div class="alert alert-danger" role="alert" aria-live="assertive">
+                        <ul class="mb-0">
+                            <?php foreach ($errors as $error): ?>
+                                <li><?= sanitize($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                <form method="post" novalidate>
+                    <input type="hidden" name="csrf_token" value="<?= sanitize(csrf_token()) ?>">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required maxlength="150" value="<?= sanitize($name) ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="category_id" class="form-label">Category</label>
+                        <select class="form-select" id="category_id" name="category_id">
+                            <option value="">None</option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= sanitize((string)$category['id']) ?>" <?= (int)$categoryId === (int)$category['id'] ? 'selected' : '' ?>><?= sanitize($category['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" min="0" required value="<?= sanitize((string)$quantity) ?>">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="reorder_level" class="form-label">Reorder Level</label>
+                            <input type="number" class="form-control" id="reorder_level" name="reorder_level" min="0" required value="<?= sanitize((string)$reorderLevel) ?>">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="expiry_date" class="form-label">Expiry Date</label>
+                            <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="<?= sanitize($expiryDate ?? '') ?>">
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary">Update Medicine</button>
+                        <a href="<?= sanitize(app_url('medicines/index.php')) ?>" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 <?php include __DIR__ . '/../footer.php'; ?>
