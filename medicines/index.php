@@ -72,9 +72,9 @@ include __DIR__ . '/../header.php';
         <?= sanitize($flash['message'] ?? '') ?>
     </div>
 <?php endif; ?>
-<div class="card mb-3">
+<div class="card mb-3 shadow-soft">
     <div class="card-body">
-        <form class="row g-3" method="get">
+        <form class="row g-3 align-items-end" method="get">
             <div class="col-md-5">
                 <label for="q" class="form-label">Search by name</label>
                 <input type="text" class="form-control" id="q" name="q" value="<?= sanitize($search) ?>" placeholder="Enter medicine name">
@@ -88,19 +88,19 @@ include __DIR__ . '/../header.php';
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="col-md-3 align-self-end">
+            <div class="col-md-3">
                 <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-outline-primary">Filter</button>
+                    <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
                     <a href="<?= sanitize(app_url('medicines/index.php')) ?>" class="btn btn-outline-secondary">Reset</a>
                 </div>
             </div>
         </form>
     </div>
 </div>
-<div class="card">
+<div class="card shadow-soft">
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-striped mb-0">
+            <table class="table table-striped table-hover align-middle mb-0">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -115,13 +115,51 @@ include __DIR__ . '/../header.php';
                 <tbody>
                 <?php if ($medicines): ?>
                     <?php foreach ($medicines as $medicine): ?>
-                        <tr>
+                        <?php
+                        $quantityVal = (int)$medicine['quantity'];
+                        $reorderVal = (int)$medicine['reorder_level'];
+                        $lowStock = $quantityVal < $reorderVal;
+                        $expiringSoon = false;
+                        if (!empty($medicine['expiry_date'])) {
+                            try {
+                                $expiryDateObj = new DateTimeImmutable($medicine['expiry_date']);
+                                $today = new DateTimeImmutable();
+                                $diffDays = (int)$today->diff($expiryDateObj)->format('%r%a');
+                                $expiringSoon = $diffDays >= 0 && $diffDays <= 30;
+                            } catch (Exception $e) {
+                                $expiringSoon = false;
+                            }
+                        }
+                        $rowClasses = ['align-middle'];
+                        if ($lowStock) {
+                            $rowClasses[] = 'low-stock';
+                        }
+                        if ($expiringSoon) {
+                            $rowClasses[] = 'expiring-soon';
+                        }
+                        $rowClassAttr = sanitize(implode(' ', $rowClasses));
+                        ?>
+                        <tr class="<?= $rowClassAttr ?>">
                             <td><?= sanitize((string)$medicine['id']) ?></td>
                             <td><?= sanitize($medicine['name']) ?></td>
                             <td><?= sanitize($medicine['category_name'] ?? 'Unassigned') ?></td>
-                            <td><?= sanitize((string)$medicine['quantity']) ?></td>
+                            <td>
+                                <?php if ($lowStock): ?>
+                                    <span class="badge badge-soft-danger"><?= sanitize((string)$medicine['quantity']) ?></span>
+                                <?php else: ?>
+                                    <span class="badge badge-soft"><?= sanitize((string)$medicine['quantity']) ?></span>
+                                <?php endif; ?>
+                            </td>
                             <td><?= sanitize((string)$medicine['reorder_level']) ?></td>
-                            <td><?= sanitize($medicine['expiry_date'] ?? 'N/A') ?></td>
+                            <td>
+                                <?php if (!empty($medicine['expiry_date'])): ?>
+                                    <span class="badge <?= $expiringSoon ? 'badge-soft-warning' : 'badge-soft' ?>">
+                                        <?= sanitize($medicine['expiry_date']) ?>
+                                    </span>
+                                <?php else: ?>
+                                    <span class="text-muted">N/A</span>
+                                <?php endif; ?>
+                            </td>
                             <td class="text-end">
                                 <a href="edit.php?id=<?= sanitize((string)$medicine['id']) ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
                                 <form action="delete.php" method="post" class="d-inline" onsubmit="return confirm('Delete this medicine?');">
