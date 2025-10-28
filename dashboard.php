@@ -36,39 +36,55 @@ unset($_SESSION['flash']);
 <?php endif; ?>
 <div class="row g-3 mb-4">
     <div class="col-md-4">
-        <div class="card text-bg-primary h-100">
-            <div class="card-body">
-                <h2 class="card-title h5">Total Medicines</h2>
-                <p class="display-6 mb-0"><?= sanitize((string)$summary['total']) ?></p>
+        <div class="card stat-card bg-gradient-primary h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="text-uppercase small mb-1 text-white-50">Total Medicines</p>
+                    <h2 class="display-6 mb-0 text-white"><?= sanitize((string)$summary['total']) ?></h2>
+                </div>
+                <div class="icon-circle text-white">
+                    <i class="bi bi-capsule"></i>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card text-bg-warning h-100">
-            <div class="card-body">
-                <h2 class="card-title h5">Low Stock</h2>
-                <p class="display-6 mb-0"><?= sanitize((string)$summary['low_stock']) ?></p>
+        <div class="card stat-card bg-warning h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="text-uppercase small mb-1 text-dark-50">Low Stock</p>
+                    <h2 class="display-6 mb-0 text-dark"><?= sanitize((string)$summary['low_stock']) ?></h2>
+                </div>
+                <div class="icon-circle text-dark">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card text-bg-danger h-100">
-            <div class="card-body">
-                <h2 class="card-title h5">Expiring Soon</h2>
-                <p class="display-6 mb-0"><?= sanitize((string)$summary['expiring']) ?></p>
+        <div class="card stat-card bg-danger h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="text-uppercase small mb-1 text-white-50">Expiring Soon</p>
+                    <h2 class="display-6 mb-0 text-white"><?= sanitize((string)$summary['expiring']) ?></h2>
+                </div>
+                <div class="icon-circle text-white">
+                    <i class="bi bi-calendar-x"></i>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <div class="row g-4">
     <div class="col-lg-6">
-        <div class="card h-100">
-            <div class="card-header bg-transparent">
+        <div class="card h-100 shadow-soft">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                 <h2 class="h5 mb-0">Low Stock Medicines</h2>
+                <span class="badge bg-danger-subtle text-danger">Threshold &lt; reorder level</span>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table mb-0">
+                    <table class="table table-hover align-middle mb-0">
                         <thead>
                         <tr>
                             <th scope="col">Name</th>
@@ -81,13 +97,13 @@ unset($_SESSION['flash']);
                             <?php foreach ($lowStockMedicines as $medicine): ?>
                                 <tr>
                                     <td><?= sanitize($medicine['name']) ?></td>
-                                    <td class="text-end"><?= sanitize((string)$medicine['quantity']) ?></td>
+                                    <td class="text-end"><span class="badge bg-danger-subtle text-danger"><?= sanitize((string)$medicine['quantity']) ?></span></td>
                                     <td class="text-end"><?= sanitize((string)$medicine['reorder_level']) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="3" class="text-center p-4">No low stock medicines.</td>
+                                <td colspan="3" class="text-center p-4 text-muted">No low stock medicines.</td>
                             </tr>
                         <?php endif; ?>
                         </tbody>
@@ -97,13 +113,14 @@ unset($_SESSION['flash']);
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="card h-100">
-            <div class="card-header bg-transparent">
+        <div class="card h-100 shadow-soft">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                 <h2 class="h5 mb-0">Expiring Soon</h2>
+                <span class="badge bg-warning-subtle text-warning">Within 30 days</span>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table mb-0">
+                    <table class="table table-hover align-middle mb-0">
                         <thead>
                         <tr>
                             <th scope="col">Name</th>
@@ -116,13 +133,13 @@ unset($_SESSION['flash']);
                             <?php foreach ($expiringMedicines as $medicine): ?>
                                 <tr>
                                     <td><?= sanitize($medicine['name']) ?></td>
-                                    <td><?= sanitize($medicine['expiry_date']) ?></td>
+                                    <td><span class="badge bg-warning-subtle text-warning"><?= sanitize($medicine['expiry_date']) ?></span></td>
                                     <td class="text-end"><?= sanitize((string)($medicine['days_left'] ?? '')) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="3" class="text-center p-4">No medicines expiring soon.</td>
+                                <td colspan="3" class="text-center p-4 text-muted">No medicines expiring soon.</td>
                             </tr>
                         <?php endif; ?>
                         </tbody>
