@@ -145,7 +145,7 @@ include __DIR__ . '/../header.php';
                             <td><?= sanitize($medicine['category_name'] ?? 'Unassigned') ?></td>
                             <td>
                                 <?php if ($lowStock): ?>
-                                    <span class="badge badge-soft-warning"><?= sanitize((string)$medicine['quantity']) ?></span>
+                                    <span class="badge badge-soft-danger"><?= sanitize((string)$medicine['quantity']) ?></span>
                                 <?php else: ?>
                                     <span class="badge badge-soft"><?= sanitize((string)$medicine['quantity']) ?></span>
                                 <?php endif; ?>
@@ -153,7 +153,7 @@ include __DIR__ . '/../header.php';
                             <td><?= sanitize((string)$medicine['reorder_level']) ?></td>
                             <td>
                                 <?php if (!empty($medicine['expiry_date'])): ?>
-                                    <span class="badge <?= $expiringSoon ? 'badge-soft-danger' : 'badge-soft' ?>">
+                                    <span class="badge <?= $expiringSoon ? 'badge-soft-warning' : 'badge-soft' ?>">
                                         <?= sanitize($medicine['expiry_date']) ?>
                                     </span>
                                 <?php else: ?>
@@ -182,7 +182,7 @@ include __DIR__ . '/../header.php';
 </div>
 <?php if ($totalPages > 1): ?>
     <nav class="mt-3" aria-label="Medicines pagination">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination">
             <?php $queryBase = $_GET; ?>
             <?php $queryBase['page'] = max(1, $page - 1); ?>
             <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
