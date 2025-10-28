@@ -80,7 +80,7 @@ unset($_SESSION['flash']);
         <div class="card h-100 shadow-soft">
             <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                 <h2 class="h5 mb-0">Low Stock Medicines</h2>
-                <span class="badge bg-danger-subtle text-danger">Threshold &lt; reorder level</span>
+                <span class="badge rounded-pill bg-warning-subtle text-warning">Threshold &lt; reorder level</span>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -97,7 +97,7 @@ unset($_SESSION['flash']);
                             <?php foreach ($lowStockMedicines as $medicine): ?>
                                 <tr>
                                     <td><?= sanitize($medicine['name']) ?></td>
-                                    <td class="text-end"><span class="badge bg-danger-subtle text-danger"><?= sanitize((string)$medicine['quantity']) ?></span></td>
+                                    <td class="text-end"><span class="badge rounded-pill <?= $medicine['quantity'] < $medicine['reorder_level'] ? 'bg-warning-subtle text-warning' : 'bg-secondary-subtle text-dark' ?>"><?= sanitize((string)$medicine['quantity']) ?></span></td>
                                     <td class="text-end"><?= sanitize((string)$medicine['reorder_level']) ?></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -116,7 +116,7 @@ unset($_SESSION['flash']);
         <div class="card h-100 shadow-soft">
             <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                 <h2 class="h5 mb-0">Expiring Soon</h2>
-                <span class="badge bg-warning-subtle text-warning">Within 30 days</span>
+                <span class="badge rounded-pill bg-danger-subtle text-danger">Within 30 days</span>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -133,7 +133,7 @@ unset($_SESSION['flash']);
                             <?php foreach ($expiringMedicines as $medicine): ?>
                                 <tr>
                                     <td><?= sanitize($medicine['name']) ?></td>
-                                    <td><span class="badge bg-warning-subtle text-warning"><?= sanitize($medicine['expiry_date']) ?></span></td>
+                                    <td><span class="badge rounded-pill bg-danger-subtle text-danger"><?= sanitize($medicine['expiry_date']) ?></span></td>
                                     <td class="text-end"><?= sanitize((string)($medicine['days_left'] ?? '')) ?></td>
                                 </tr>
                             <?php endforeach; ?>
