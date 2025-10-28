@@ -130,11 +130,11 @@ main.container {
 }
 
 .table tr.low-stock {
-    border-left: 4px solid #dc3545;
+    border-left: 4px solid #fd7e14;
 }
 
 .table tr.expiring-soon {
-    border-left: 4px solid #fd7e14;
+    border-left: 4px solid #dc3545;
 }
 
 .filter-toolbar .form-label {
