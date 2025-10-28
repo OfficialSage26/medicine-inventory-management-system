@@ -23,7 +23,7 @@ include __DIR__ . '/../header.php';
     <a href="<?= sanitize(app_url('categories/add.php')) ?>" class="btn btn-primary d-none d-lg-inline-flex"><i class="bi bi-plus-lg me-2"></i>Add Category</a>
 </div>
 <?php if ($flash): ?>
-    <div class="alert alert-<?= sanitize($flash['type'] ?? 'info') ?>">
+    <div class="alert alert-<?= sanitize($flash['type'] ?? 'info') ?>" role="alert" aria-live="assertive">
         <?= sanitize($flash['message'] ?? '') ?>
     </div>
 <?php endif; ?>
@@ -50,7 +50,7 @@ include __DIR__ . '/../header.php';
                             <td><?= sanitize($category['updated_at']) ?></td>
                             <td class="text-end">
                                 <a href="edit.php?id=<?= sanitize((string)$category['id']) ?>" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
-                                <form action="delete.php" method="post" class="d-inline" onsubmit="return confirm('Delete this category? Medicines will lose the category association.');">
+                                <form action="delete.php" method="post" class="d-inline needs-confirm" data-confirm-message="Delete this category? Medicines will lose the category association.">
                                     <input type="hidden" name="csrf_token" value="<?= sanitize(csrf_token()) ?>">
                                     <input type="hidden" name="id" value="<?= sanitize((string)$category['id']) ?>">
                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
