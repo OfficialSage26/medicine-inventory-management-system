@@ -48,28 +48,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include __DIR__ . '/../header.php';
 ?>
 <div class="row justify-content-center">
-    <div class="col-md-6">
-        <h1 class="h3 mb-3">Edit Category</h1>
-        <?php if ($errors): ?>
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    <?php foreach ($errors as $error): ?>
-                        <li><?= sanitize($error) ?></li>
-                    <?php endforeach; ?>
-                </ul>
+    <div class="col-md-7 col-lg-5">
+        <div class="card form-card">
+            <div class="card-header d-flex align-items-center">
+                <span class="me-3 text-primary"><i class="bi bi-pencil-square fs-3"></i></span>
+                <div>
+                    <h1 class="h4 mb-0">Edit Category</h1>
+                    <p class="text-muted small mb-0">Update the details for this category.</p>
+                </div>
             </div>
-        <?php endif; ?>
-        <form method="post" novalidate>
-            <input type="hidden" name="csrf_token" value="<?= sanitize(csrf_token()) ?>">
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required maxlength="100" value="<?= sanitize($name) ?>">
+            <div class="card-body">
+                <?php if ($errors): ?>
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            <?php foreach ($errors as $error): ?>
+                                <li><?= sanitize($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                <form method="post" novalidate>
+                    <input type="hidden" name="csrf_token" value="<?= sanitize(csrf_token()) ?>">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required maxlength="100" value="<?= sanitize($name) ?>">
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" class="btn btn-primary">Update Category</button>
+                        <a href="<?= sanitize(app_url('categories/index.php')) ?>" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
             </div>
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="/categories/index.php" class="btn btn-outline-secondary">Cancel</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 <?php include __DIR__ . '/../footer.php'; ?>
