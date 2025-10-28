@@ -124,7 +124,7 @@ include __DIR__ . '/../header.php';
             </div>
             <div class="d-flex gap-2 mt-3">
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a href="/medicines/index.php" class="btn btn-outline-secondary">Cancel</a>
+                <a href="<?= sanitize(app_url('medicines/index.php')) ?>" class="btn btn-outline-secondary">Cancel</a>
             </div>
         </form>
     </div>
