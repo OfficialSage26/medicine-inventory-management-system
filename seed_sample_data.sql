@@ -1,9 +1,31 @@
 USE medicine_inventory;
 
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE medicines;
+TRUNCATE TABLE categories;
+SET FOREIGN_KEY_CHECKS = 1;
+
 INSERT INTO categories (name) VALUES
   ('Antibiotic'),
   ('Painkiller'),
-  ('Supplement');
+  ('Supplement'),
+  ('Antiseptic'),
+  ('Antihypertensive'),
+  ('Antidiabetic'),
+  ('Antiviral'),
+  ('Vaccine'),
+  ('Antifungal'),
+  ('Antacid'),
+  ('Antiemetic'),
+  ('Antidepressant'),
+  ('Antihistamine'),
+  ('Steroid'),
+  ('Respiratory'),
+  ('Dermatological'),
+  ('Gastrointestinal'),
+  ('Cardiac'),
+  ('Neurological'),
+  ('Pediatric');
 
 INSERT INTO medicines (name, category_id, quantity, reorder_level, expiry_date) VALUES
   ('Amoxicillin 500mg', 1, 5, 10, DATE_ADD(CURDATE(), INTERVAL 20 DAY)),
@@ -13,4 +35,38 @@ INSERT INTO medicines (name, category_id, quantity, reorder_level, expiry_date) 
   ('Diclofenac 50mg', 2, 3, 5, DATE_ADD(CURDATE(), INTERVAL 5 DAY)),
   ('Vitamin C 1000mg', 3, 2, 5, NULL),
   ('Calcium + Vitamin D', 3, 25, 10, DATE_ADD(CURDATE(), INTERVAL 60 DAY)),
-  ('Zinc Sulfate', 3, 6, 10, DATE_ADD(CURDATE(), INTERVAL 25 DAY));
+  ('Zinc Sulfate', 3, 6, 10, DATE_ADD(CURDATE(), INTERVAL 25 DAY)),
+  ('Chlorhexidine Solution', 4, 18, 10, DATE_ADD(CURDATE(), INTERVAL 180 DAY)),
+  ('Povidone-Iodine Ointment', 4, 9, 8, DATE_ADD(CURDATE(), INTERVAL 45 DAY)),
+  ('Lisinopril 10mg', 5, 60, 30, DATE_ADD(CURDATE(), INTERVAL 180 DAY)),
+  ('Amlodipine 5mg', 5, 18, 25, DATE_ADD(CURDATE(), INTERVAL 25 DAY)),
+  ('Metformin 500mg', 6, 120, 50, DATE_ADD(CURDATE(), INTERVAL 200 DAY)),
+  ('Gliclazide 80mg', 6, 40, 30, DATE_ADD(CURDATE(), INTERVAL 90 DAY)),
+  ('Insulin Glargine Vial', 6, 25, 20, DATE_ADD(CURDATE(), INTERVAL 15 DAY)),
+  ('Oseltamivir 75mg', 7, 12, 10, DATE_ADD(CURDATE(), INTERVAL 40 DAY)),
+  ('Favipiravir 200mg', 7, 6, 8, DATE_ADD(CURDATE(), INTERVAL 30 DAY)),
+  ('Influenza Vaccine', 8, 35, 20, DATE_ADD(CURDATE(), INTERVAL 70 DAY)),
+  ('Hepatitis B Vaccine', 8, 5, 10, DATE_ADD(CURDATE(), INTERVAL 5 DAY)),
+  ('Clotrimazole Cream 1%', 9, 14, 10, DATE_ADD(CURDATE(), INTERVAL 365 DAY)),
+  ('Fluconazole 150mg', 9, 22, 12, DATE_ADD(CURDATE(), INTERVAL 120 DAY)),
+  ('Omeprazole 20mg', 10, 80, 30, DATE_ADD(CURDATE(), INTERVAL 300 DAY)),
+  ('Ranitidine 150mg', 10, 0, 10, DATE_SUB(CURDATE(), INTERVAL 10 DAY)),
+  ('Ondansetron 8mg', 11, 16, 12, DATE_ADD(CURDATE(), INTERVAL 12 DAY)),
+  ('Sertraline 50mg', 12, 44, 20, DATE_ADD(CURDATE(), INTERVAL 250 DAY)),
+  ('Amitriptyline 25mg', 12, 11, 10, DATE_ADD(CURDATE(), INTERVAL 120 DAY)),
+  ('Cetirizine 10mg', 13, 22, 15, DATE_ADD(CURDATE(), INTERVAL 60 DAY)),
+  ('Loratadine 10mg', 13, 35, 18, DATE_ADD(CURDATE(), INTERVAL 210 DAY)),
+  ('Hydrocortisone Cream 1%', 14, 9, 12, DATE_ADD(CURDATE(), INTERVAL 20 DAY)),
+  ('Prednisone 20mg', 14, 28, 15, DATE_ADD(CURDATE(), INTERVAL 140 DAY)),
+  ('Salbutamol Inhaler', 15, 7, 15, DATE_ADD(CURDATE(), INTERVAL 45 DAY)),
+  ('Budesonide Nebules', 15, 18, 10, DATE_ADD(CURDATE(), INTERVAL 90 DAY)),
+  ('Ketoconazole Shampoo', 16, 11, 8, DATE_ADD(CURDATE(), INTERVAL 50 DAY)),
+  ('Mupirocin Ointment', 16, 6, 6, DATE_ADD(CURDATE(), INTERVAL 75 DAY)),
+  ('Loperamide 2mg', 17, 30, 15, DATE_ADD(CURDATE(), INTERVAL 400 DAY)),
+  ('Oral Rehydration Salts', 17, 45, 20, NULL),
+  ('Atorvastatin 20mg', 18, 55, 40, DATE_ADD(CURDATE(), INTERVAL 320 DAY)),
+  ('Clopidogrel 75mg', 18, 14, 15, DATE_ADD(CURDATE(), INTERVAL 35 DAY)),
+  ('Levetiracetam 500mg', 19, 20, 15, DATE_ADD(CURDATE(), INTERVAL 90 DAY)),
+  ('Gabapentin 300mg', 19, 33, 18, DATE_ADD(CURDATE(), INTERVAL 110 DAY)),
+  ('Pediatric Multivitamin Drops', 20, 14, 10, DATE_ADD(CURDATE(), INTERVAL 120 DAY)),
+  ('Amoxicillin Suspension', 20, 9, 12, DATE_ADD(CURDATE(), INTERVAL 18 DAY));
