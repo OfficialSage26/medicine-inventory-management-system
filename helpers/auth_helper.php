@@ -33,7 +33,7 @@ function isLoggedIn(): bool
 function requireLogin(): void
 {
     if (!isLoggedIn()) {
-        redirect('/auth/login.php');
+        redirect('auth/login.php');
     }
 }
 function csrf_token(): string
