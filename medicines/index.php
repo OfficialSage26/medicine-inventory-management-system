@@ -91,7 +91,7 @@ include __DIR__ . '/../header.php';
             <div class="col-md-3 align-self-end">
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-outline-primary">Filter</button>
-                    <a href="/medicines/index.php" class="btn btn-outline-secondary">Reset</a>
+                    <a href="<?= sanitize(app_url('medicines/index.php')) ?>" class="btn btn-outline-secondary">Reset</a>
                 </div>
             </div>
         </form>
