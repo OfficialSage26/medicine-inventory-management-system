@@ -20,17 +20,17 @@ include __DIR__ . '/../header.php';
         <h1 class="h3 mb-1">Categories</h1>
         <p class="text-muted mb-0">Manage medicine categories.</p>
     </div>
-    <a href="add.php" class="btn btn-primary">Add Category</a>
+    <a href="<?= sanitize(app_url('categories/add.php')) ?>" class="btn btn-primary d-none d-lg-inline-flex"><i class="bi bi-plus-lg me-2"></i>Add Category</a>
 </div>
 <?php if ($flash): ?>
     <div class="alert alert-<?= sanitize($flash['type'] ?? 'info') ?>">
         <?= sanitize($flash['message'] ?? '') ?>
     </div>
 <?php endif; ?>
-<div class="card">
+<div class="card shadow-soft">
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-striped mb-0">
+            <table class="table table-striped table-hover align-middle mb-0">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -49,7 +49,7 @@ include __DIR__ . '/../header.php';
                             <td><?= sanitize($category['created_at']) ?></td>
                             <td><?= sanitize($category['updated_at']) ?></td>
                             <td class="text-end">
-                                <a href="edit.php?id=<?= sanitize((string)$category['id']) ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <a href="edit.php?id=<?= sanitize((string)$category['id']) ?>" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
                                 <form action="delete.php" method="post" class="d-inline" onsubmit="return confirm('Delete this category? Medicines will lose the category association.');">
                                     <input type="hidden" name="csrf_token" value="<?= sanitize(csrf_token()) ?>">
                                     <input type="hidden" name="id" value="<?= sanitize((string)$category['id']) ?>">
@@ -60,7 +60,7 @@ include __DIR__ . '/../header.php';
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" class="text-center p-4">No categories found.</td>
+                        <td colspan="5" class="text-center p-4 text-muted">No categories found.</td>
                     </tr>
                 <?php endif; ?>
                 </tbody>
@@ -68,4 +68,5 @@ include __DIR__ . '/../header.php';
         </div>
     </div>
 </div>
+<a href="<?= sanitize(app_url('categories/add.php')) ?>" class="btn btn-primary floating-action-btn d-lg-none"><i class="bi bi-plus-lg me-2"></i>Add Category</a>
 <?php include __DIR__ . '/../footer.php'; ?>
