@@ -55,7 +55,7 @@ Secure, storage-only inventory tracker for pharmacies and clinics. Built with PH
 # Login (store cookie)
 curl -i -c cookies.txt -X POST \
   -F "username=admin" -F "password=admin123" \
-  http://localhost/medicine-inventory/auth/login.php
+  http://localhost/medicine-inventory-management-system/auth/login.php
 
 # Fetch medicines list with search & category filter
 curl -b cookies.txt \
